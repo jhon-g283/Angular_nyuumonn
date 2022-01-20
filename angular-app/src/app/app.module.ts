@@ -18,7 +18,10 @@ import { Hellow2Component } from './hellow2/hellow2.component';
     BrowserModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  // ブートストラップ
+  // 中に入れるのは上でインポートしてきているクラス名・NGモジュール（）
+  // bootstrap: [AppComponent]
+  bootstrap: [HelloComponent]
 })
 export class AppModule { }
 
