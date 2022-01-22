@@ -24,3 +24,8 @@ p {
     color: red;
 
 }
+
+.red {
+    color: white;
+    background-color: red;
+}
