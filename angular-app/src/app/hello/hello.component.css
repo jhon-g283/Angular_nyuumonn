@@ -29,3 +29,7 @@ p {
     color: white;
     background-color: red;
 }
+
+.thin {color: #999;}
+.large {font-size: 30pt;}
+.thin {border:solid 2px red;}
