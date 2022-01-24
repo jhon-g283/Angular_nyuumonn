@@ -30,7 +30,7 @@ import { Component, OnInit } from '@angular/core';
       <p>{{switch}}</p>
       <p *ngIf="switch === 'one'">iii</p>
       <div [ngSwitch]="switch">
-          <p *ngSwitchCace="one">First paragraph!</p>
+          <p *ngSwitchCace="'one'">First paragraph!</p>
           <p *ngSwitchCace='two'>Second paragraph!</p>
           <p *ngSwitchCace="'three'">Third paragraph!</p>
           <p *ngSwitchDefault>Default paragraph</p>
@@ -46,10 +46,16 @@ import { Component, OnInit } from '@angular/core';
       <p [style.font-size.pt] ="28" [style.color]="'#F99'" >{{message4}}:36</p>
       <p [style.font-size.pt] ="20" [style.color]="'#F20'" >{{message4}}:36</p>
       
-      <p [ngClass]= "nowClass" >ngClass:{{message}}</p>
+      <!-- ngStyle  -->
+      <p [ngClass]= "nowClass" >ngClass:{{message5}}</p>
       <input type="checkbox" #ck1 (change)="check(ck1.checked,ck2.checked,ck3.checked);">Thin
       <input type="checkbox" #ck2 (change)="check(ck1.checked,ck2.checked,ck3.checked);">Large
       <input type="checkbox" #ck3 (change)="check(ck1.checked,ck2.checked,ck3.checked);">Frame
+
+      <p [ngStyle]= "nowStyle" >ngStyle:{{message6}}</p>
+      <a>border-style:</a><input type="text" #in1 (change)="check2(in1.value,in2.value,in3.value);"><br>
+      <a>border-width:</a><input type="text" #in2 (change)="check2(in1.value,in2.value,in3.value);"><br>
+      <a>border-color:</a><input type="text" #in3 (change)="check2(in1.value,in2.value,in3.value);"><br>
       
     </div>
   
@@ -64,6 +70,9 @@ export class HelloComponent implements OnInit {
   message2:string;
   message3:string;
   message4:string;
+  message5:string;
+  message6:string;
+
   price:number;
   now:Date;//日付
   styleClass:string;//バインド用のクラス名
@@ -72,6 +81,11 @@ export class HelloComponent implements OnInit {
   visible:boolean;
   data:string[];
   switch:string;
+
+
+  nowClass:any;
+  nowStyle:any;
+
 
   // コンストラクタ
   constructor() { 
@@ -95,6 +109,8 @@ export class HelloComponent implements OnInit {
     this.message2 = "thie is inline-template!"
     this.message3 = "--"
     this.message4="Font Size";
+    this.message5 = "";
+    this.message6 = "";
     
     this.price=1123450;
     this.styleClass="red";//赤にする
@@ -102,6 +118,9 @@ export class HelloComponent implements OnInit {
     this.visible=false;
     this.data = ["1data","2data","3data"];
     this.switch="one";
+
+    this.nowClass = {'thin':false,'large':false,'frame':false};
+    this.nowStyle = {'border-style':'','border-width':'','border-color':''};
   }
 
   // あらかじめ用意した関数をhtml内の{{}}で表示
@@ -130,17 +149,29 @@ export class HelloComponent implements OnInit {
     this.visible = !this.visible;
   }
 
-  doSelect(val:string){
+  doSelect(val:any){
     this.switch=val;
     console.log("change to "  + val);
   }
 
   // チェックボックスのクラス変更関数
-  check(c1,c2,c3){
+  check(c1:boolean,c2:boolean,c3:boolean){
     this.nowClass.thin=c1;
+    this.nowClass.large=c2;
+    this.nowClass.frame=c3;
 
-
+    this.message5=c1 + "," + c2 + "," + c3;
 
   }
+
+  check2(in1:any,in2:any,in3:any){
+    this.nowStyle['border-style']=in1;
+    this.nowStyle['border-width']=in2 + "px";
+    this.nowStyle['border-color']=in3;
+    
+    this.message6 = JSON.stringify(this.nowStyle);
+
+  }
+
 
 }

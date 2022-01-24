@@ -30,6 +30,7 @@ p {
     background-color: red;
 }
 
+/* ngClassで設定するクラス名 */
 .thin {color: #999;}
 .large {font-size: 30pt;}
-.thin {border:solid 2px red;}
+.frame {border:solid 2px red;}
