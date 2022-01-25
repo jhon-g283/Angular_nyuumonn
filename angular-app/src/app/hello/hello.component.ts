@@ -57,6 +57,16 @@ import { Component, OnInit } from '@angular/core';
       <a>border-width:</a><input type="text" #in2 (change)="check2(in1.value,in2.value,in3.value);"><br>
       <a>border-color:</a><input type="text" #in3 (change)="check2(in1.value,in2.value,in3.value);"><br>
       
+      <!-- ここまで２章 -->
+      <!-- ３章 -->
+
+
+      <title>{{title}}</title>
+      <p>{{message7}}</p>
+      <p>TYPE:{{text1}}".   <=====ngModelに結びつけたテキストボックスのプロパティの値とリアルタイムに同じになる"</p>
+      <input type="text" [(ngModel)]="text1" />
+
+
     </div>
   
   `,
@@ -72,6 +82,8 @@ export class HelloComponent implements OnInit {
   message4:string;
   message5:string;
   message6:string;
+  message7:string;
+  
 
   price:number;
   now:Date;//日付
@@ -82,9 +94,10 @@ export class HelloComponent implements OnInit {
   data:string[];
   switch:string;
 
-
   nowClass:any;
   nowStyle:any;
+
+  text1:string;
 
 
   // コンストラクタ
@@ -111,6 +124,7 @@ export class HelloComponent implements OnInit {
     this.message4="Font Size";
     this.message5 = "";
     this.message6 = "";
+    this.message7 = "双方向バインド（ngModel）使用：";
     
     this.price=1123450;
     this.styleClass="red";//赤にする
