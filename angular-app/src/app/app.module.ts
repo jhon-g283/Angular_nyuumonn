@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import {FormsModule} from '@angular/forms';//フォーム用のモジュール
+import {FormsModule,ReactiveFormsModule} from '@angular/forms';//フォーム用のモジュール、テンプレート駆動フォーム,リアクティブモジュール
 
 // 定義部分にあたるapp.componentを取り込む,import
 import { AppComponent } from './app.component';
@@ -17,7 +17,8 @@ import { Hellow2Component } from './hellow2/hellow2.component';
   ],
   imports: [
     BrowserModule,
-    FormsModule // フォームモジュール
+    FormsModule, // フォームモジュール
+    ReactiveFormsModule//リアクティブモジュール
   ],
   providers: [],
   // ブートストラップ

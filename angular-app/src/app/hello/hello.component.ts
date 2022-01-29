@@ -1,5 +1,7 @@
 // おまじない的なもの、OnInitは初期化系
+import { ThisReceiver } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 
 
 
@@ -46,12 +48,13 @@ import { Component, OnInit } from '@angular/core';
       <p [style.font-size.pt] ="28" [style.color]="'#F99'" >{{message4}}:36</p>
       <p [style.font-size.pt] ="20" [style.color]="'#F20'" >{{message4}}:36</p>
       
-      <!-- ngStyle  -->
+      <!-- ngClass -->
       <p [ngClass]= "nowClass" >ngClass:{{message5}}</p>
       <input type="checkbox" #ck1 (change)="check(ck1.checked,ck2.checked,ck3.checked);">Thin
       <input type="checkbox" #ck2 (change)="check(ck1.checked,ck2.checked,ck3.checked);">Large
       <input type="checkbox" #ck3 (change)="check(ck1.checked,ck2.checked,ck3.checked);">Frame
 
+      <!-- ngStyle -->
       <p [ngStyle]= "nowStyle" >ngStyle:{{message6}}</p>
       <a>border-style:</a><input type="text" #in1 (change)="check2(in1.value,in2.value,in3.value);"><br>
       <a>border-width:</a><input type="text" #in2 (change)="check2(in1.value,in2.value,in3.value);"><br>
@@ -60,11 +63,18 @@ import { Component, OnInit } from '@angular/core';
       <!-- ここまで２章 -->
       <!-- ３章 -->
 
-
+      <p>テンプレート駆動</p>
       <title>{{title}}</title>
       <p>{{message7}}</p>
       <p>TYPE:{{text1}}".   <=====ngModelに結びつけたテキストボックスのプロパティの値とリアルタイムに同じになる"</p>
       <input type="text" [(ngModel)]="text1" />
+
+      <p>リアクティブフォーム</p>
+      <p>{{message8}}</p>
+      <p>TYPE:{{myControl.value}}".   <=====（画面）テンプレート側でなく、コンポーネント側が制御の主導権を握れる"</p>
+      <input type="text" [formControl]="myControl" />
+
+
 
 
     </div>
@@ -83,6 +93,7 @@ export class HelloComponent implements OnInit {
   message5:string;
   message6:string;
   message7:string;
+  message8:string;
   
 
   price:number;
@@ -94,10 +105,11 @@ export class HelloComponent implements OnInit {
   data:string[];
   switch:string;
 
-  nowClass:any;
-  nowStyle:any;
+  nowClass:any;//
+  nowStyle:any;//
 
-  text1:string;
+  text1:string;//テンプレート駆動フォームの値
+  myControl:FormControl;//リアクティブフォームの型
 
 
   // コンストラクタ
@@ -125,6 +137,7 @@ export class HelloComponent implements OnInit {
     this.message5 = "";
     this.message6 = "";
     this.message7 = "双方向バインド（ngModel）使用：";
+    this.message8 = "リアクティブフォームを使用";
     
     this.price=1123450;
     this.styleClass="red";//赤にする
@@ -135,6 +148,8 @@ export class HelloComponent implements OnInit {
 
     this.nowClass = {'thin':false,'large':false,'frame':false};
     this.nowStyle = {'border-style':'','border-width':'','border-color':''};
+
+    this.myControl = new FormControl('ok');//リアクティブフォームのセット、初期値入り
   }
 
   // あらかじめ用意した関数をhtml内の{{}}で表示
@@ -178,6 +193,7 @@ export class HelloComponent implements OnInit {
 
   }
 
+  // テキストボックス内の値をスタイル値に反映させる。
   check2(in1:any,in2:any,in3:any){
     this.nowStyle['border-style']=in1;
     this.nowStyle['border-width']=in2 + "px";
