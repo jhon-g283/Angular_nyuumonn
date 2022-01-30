@@ -69,10 +69,12 @@ import { FormControl } from '@angular/forms';
       <p>TYPE:{{text1}}".   <=====ngModelに結びつけたテキストボックスのプロパティの値とリアルタイムに同じになる"</p>
       <input type="text" [(ngModel)]="text1" />
 
-      <p>リアクティブフォーム</p>
+      <p>リアクティブフォーム テンプレートの型をコンポ側で変数として宣言することで制御の主導権やプロパティの取得ができる。（formControl）</p>
       <p>{{message8}}</p>
       <p>TYPE:{{myControl.value}}".   <=====（画面）テンプレート側でなく、コンポーネント側が制御の主導権を握れる"</p>
-      <input type="text" [formControl]="myControl" />
+      <input type="text" [formControl]="myControl" /><
+      <button (click)="doClick3()">Click</button>
+
 
 
 
@@ -200,6 +202,11 @@ export class HelloComponent implements OnInit {
     this.nowStyle['border-color']=in3;
     
     this.message6 = JSON.stringify(this.nowStyle);
+
+  }
+
+  doClick3(){
+    this.message8 = "[" + this.myControl.value + "] と書きました。(入力ではなくボタン押下時のイベント駆動)";
 
   }
 
