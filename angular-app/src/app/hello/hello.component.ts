@@ -1,7 +1,7 @@
 // おまじない的なもの、OnInitは初期化系
 import { ThisReceiver } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl,FormGroup } from '@angular/forms';//フォームコントロール、フォームグループをインポート
 
 
 
@@ -72,11 +72,33 @@ import { FormControl } from '@angular/forms';
       <p>リアクティブフォーム テンプレートの型をコンポ側で変数として宣言することで制御の主導権やプロパティの取得ができる。（formControl）</p>
       <p>{{message8}}</p>
       <p>TYPE:{{myControl.value}}".   <=====（画面）テンプレート側でなく、コンポーネント側が制御の主導権を握れる"</p>
-      <input type="text" [formControl]="myControl" /><
+      <input type="text" [formControl]="myControl" />
       <button (click)="doClick3()">Click</button>
 
 
+      <p class = "red-border">------------------------</p>
+      <p>フォームコントロールグループ フォームコントロールをグループにできる。テンプレ内のnameとコンポ側のフォーム用インスタンスを結びつけておく</p>
+      <p>{{message9}}</p>
 
+      <form [formGroup] = "myControlF" (ngSubmit)="onSubmit()">
+      <table>
+        <tr><th>Name</th><td>
+          <input type="text" formControlName="name">
+        </td></tr>
+        <tr><th>Mail</th><td>
+          <input type="text" formControlName="mail">
+        </td></tr>
+        <tr><th>Age</th><td>
+          <input type="number" formControlName="age">
+        </td></tr>
+        <tr><th></th><td>
+          <input type="submit" value="click">
+        </td></tr>
+
+      </table>
+
+
+      </form>
 
 
     </div>
@@ -96,7 +118,7 @@ export class HelloComponent implements OnInit {
   message6:string;
   message7:string;
   message8:string;
-  
+  message9:string;
 
   price:number;
   now:Date;//日付
@@ -112,6 +134,7 @@ export class HelloComponent implements OnInit {
 
   text1:string;//テンプレート駆動フォームの値
   myControl:FormControl;//リアクティブフォームの型
+  myControlF:FormGroup;//フォームグループの型
 
 
   // コンストラクタ
@@ -140,6 +163,7 @@ export class HelloComponent implements OnInit {
     this.message6 = "";
     this.message7 = "双方向バインド（ngModel）使用：";
     this.message8 = "リアクティブフォームを使用";
+    this.message9 = "フォームグループ使用";
     
     this.price=1123450;
     this.styleClass="red";//赤にする
@@ -152,6 +176,14 @@ export class HelloComponent implements OnInit {
     this.nowStyle = {'border-style':'','border-width':'','border-color':''};
 
     this.myControl = new FormControl('ok');//リアクティブフォームのセット、初期値入り
+
+    // フォームグループ作成、テンプレートのタグ内のnameに紐づいたフォームコントロールのインスタンスを設定
+    this.myControlF= new FormGroup({
+      name : new FormControl(""),
+      mail : new FormControl(""),
+      age : new FormControl(0)
+            
+    });
   }
 
   // あらかじめ用意した関数をhtml内の{{}}で表示
@@ -207,6 +239,12 @@ export class HelloComponent implements OnInit {
 
   doClick3(){
     this.message8 = "[" + this.myControl.value + "] と書きました。(入力ではなくボタン押下時のイベント駆動)";
+
+  }
+
+  onSubmit(){
+    let result = this.myControlF.value;
+    this.message9 ="Submitに埋め込んだ関数実行。グループ用の型、myControlFのからvalueでプロパティを取得　" +  JSON.stringify(result);
 
   }
 

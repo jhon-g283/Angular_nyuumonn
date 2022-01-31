@@ -22,6 +22,8 @@ p {
 
 .red-border {
     color: red;
+    background-color: bisque;
+    margin-bottom: 10px;
 
 }
 
