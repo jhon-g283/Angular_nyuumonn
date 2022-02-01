@@ -16,6 +16,7 @@ import { FormControl,FormGroup } from '@angular/forms';//フォームコント�
 
       <button (click) = "doClick()">Click</button>
 
+      <p class = "red-border">------------------------</p>
       <p>{{message3}}</p>
       <!-- #XXX でクラス名XXX クラス名.valueはDocument.getElementByID(ID名)と同じ意味合い -->
       <input type="text" #field1 (keyup)="doType(field1.value)"/>
@@ -28,6 +29,7 @@ import { FormControl,FormGroup } from '@angular/forms';//フォームコント�
         <li *ngFor="let item of data">{{item}}</li>
       </ul>
 
+      <p class = "red-border">------------------------</p>
       <!-- switch文・・なぜか動かない -->
       <p>{{switch}}</p>
       <p *ngIf="switch === 'one'">iii</p>
@@ -42,6 +44,8 @@ import { FormControl,FormGroup } from '@angular/forms';//フォームコント�
         <option>two</option>
         <option>three</option>
       </select>
+
+      <p class = "red-border">------------------------</p>
 
       <!--  Style バインディング -->
       <p [style.font-size.pt] ="36" [style.color]="'#F00'" >{{message4}}:36</p>
@@ -63,12 +67,14 @@ import { FormControl,FormGroup } from '@angular/forms';//フォームコント�
       <!-- ここまで２章 -->
       <!-- ３章 -->
 
+      <p class = "red-border">------------------------</p>
       <p>テンプレート駆動</p>
       <title>{{title}}</title>
       <p>{{message7}}</p>
       <p>TYPE:{{text1}}".   <=====ngModelに結びつけたテキストボックスのプロパティの値とリアルタイムに同じになる"</p>
       <input type="text" [(ngModel)]="text1" />
 
+      <p class = "red-border">------------------------</p>
       <p>リアクティブフォーム テンプレートの型をコンポ側で変数として宣言することで制御の主導権やプロパティの取得ができる。（formControl）</p>
       <p>{{message8}}</p>
       <p>TYPE:{{myControl.value}}".   <=====（画面）テンプレート側でなく、コンポーネント側が制御の主導権を握れる"</p>
@@ -79,10 +85,11 @@ import { FormControl,FormGroup } from '@angular/forms';//フォームコント�
       <p class = "red-border">------------------------</p>
       <p>フォームコントロールグループ フォームコントロールをグループにできる。テンプレ内のnameとコンポ側のフォーム用インスタンスを結びつけておく</p>
       <p>{{message9}}</p>
-
+      <!-- テキストボックス -->
       <form [formGroup] = "myControlF" (ngSubmit)="onSubmit()">
       <table>
         <tr><th>Name</th><td>
+          <!-- formControlName=名前が重要、これをもとに取得する -->
           <input type="text" formControlName="name">
         </td></tr>
         <tr><th>Mail</th><td>
@@ -96,13 +103,77 @@ import { FormControl,FormGroup } from '@angular/forms';//フォームコント�
         </td></tr>
 
       </table>
+      </form>
+
+      <!-- チェックボックス -->
+      <p class = "red-border">------------------------</p>
+      <p>{{message10}}</p>
+      <form [formGroup] = "myControlC" (ngSubmit)="onSubmitC()">
+        <div>
+          <label><input type="checkbox" formControlName="control">Check Box</label>
+
+        </div>
+        <div>
+          <input type="submit" value="click">
+        </div>
 
 
       </form>
 
+      <!-- ラジオぼたん -->
+      <p class = "red-border">------------------------</p>
+      <p>{{message11}}</p>
+      <form [formGroup] = "myControlR" (submit) ="onSubmitR()" >
+        <div>
+          <!-- ラジオボタンの場合はformControlNameは同じで問題ない -->
+          <label><input type="radio" value="male" formControlName="control_radio">male</label>
+          <label><input type="radio" value="female" formControlName="control_radio">female</label>
+        </div>
+        <div>
+          <input type="submit" value = "click">
+
+        </div>
+
+      </form>
+
+      <!-- プルダウン -->
+      <p class = "red-border">------------------------</p>
+      <p>{{message12}}</p>
+      <form [formGroup] = "myControlP" (submit) = "onSubmitP()">
+        <div>
+          <select formControlName = "controle_pull">
+            <option>Windows</option>
+            <option>macOS</option>
+            <option>Linux</option>
+            <option>ChromeOS</option>
+          </select>
+
+        </div>
+        <input type = "submit" value = "click">
+
+      </form>
+
+      <!-- プルダウン複数選択 -->
+      <p class = "red-border">------------------------</p>
+      <p>{{message13}}</p>
+      <form [formGroup] = "myControlP_M" (submit) = "onSubmitP_M()" >
+        <div>
+          <select formControlName = "controle_pull_multi" multiple size='5'>
+            <option>Android</option>
+            <option>iOS</option>
+            <option>Linux___</option>
+            <option>ChromeOS___</option>
+          </select>
+
+        </div>
+        <input type = "submit" value = "click">
+
+      </form>
 
     </div>
   
+
+
   `,
   styleUrls: ['./hello.component.css']
 })
@@ -119,6 +190,11 @@ export class HelloComponent implements OnInit {
   message7:string;
   message8:string;
   message9:string;
+  message10:string;
+  message11:string;
+  message12:string;
+  message13:string;
+
 
   price:number;
   now:Date;//日付
@@ -134,7 +210,12 @@ export class HelloComponent implements OnInit {
 
   text1:string;//テンプレート駆動フォームの値
   myControl:FormControl;//リアクティブフォームの型
+
   myControlF:FormGroup;//フォームグループの型
+  myControlC:FormGroup;
+  myControlR:FormGroup;
+  myControlP:FormGroup;
+  myControlP_M:FormGroup;
 
 
   // コンストラクタ
@@ -164,7 +245,12 @@ export class HelloComponent implements OnInit {
     this.message7 = "双方向バインド（ngModel）使用：";
     this.message8 = "リアクティブフォームを使用";
     this.message9 = "フォームグループ使用";
-    
+    this.message10 = "FormGroup checkbox ver";
+    this.message11 = "FormGroup radiobutton ver";
+    this.message12 = "FormGroup pull down";
+    this.message13 = "FormGroup pull down malti";
+
+
     this.price=1123450;
     this.styleClass="red";//赤にする
     this.count=0;
@@ -184,6 +270,24 @@ export class HelloComponent implements OnInit {
       age : new FormControl(0)
             
     });
+    
+    this.myControlC = new FormGroup({
+      control : new FormControl()
+    });
+
+    this.myControlR = new FormGroup({
+      control_radio : new FormControl()
+    });
+
+    this.myControlP = new FormGroup({
+      controle_pull:new FormControl()
+    });
+
+    this.myControlP_M = new FormGroup({
+      controle_pull_multi:new FormControl()
+    });
+
+    // controle_pull_multi
   }
 
   // あらかじめ用意した関数をhtml内の{{}}で表示
@@ -237,14 +341,45 @@ export class HelloComponent implements OnInit {
 
   }
 
+  // ボタンでフォームコントロールのValueを取得してセット
   doClick3(){
     this.message8 = "[" + this.myControl.value + "] と書きました。(入力ではなくボタン押下時のイベント駆動)";
 
   }
 
+  // テキストボックスのFormGroupから値のプロパティを取得してセット
   onSubmit(){
     let result = this.myControlF.value;
     this.message9 ="Submitに埋め込んだ関数実行。グループ用の型、myControlFのからvalueでプロパティを取得　" +  JSON.stringify(result);
+
+  }
+
+  // チェックボックスのFormGroupから値のプロパティを取得してセット
+  onSubmitC(){
+    let result = this.myControlC.value;
+    this.message10 ="Submitに埋め込んだ関数実行。グループ用の型、myControlCのvalueでプロパティを取得　" +  JSON.stringify(result);
+
+
+  }   
+  
+   // チェックボックスのFormGroupから値のプロパティを取得してセット
+   onSubmitR(){
+    let result = this.myControlR.value;
+    this.message11 ="Submitに埋め込んだ関数実行。グループ用の型、myControlRのvalueでプロパティを取得　" +  JSON.stringify(result);
+
+
+  }   
+
+  onSubmitP(){
+    let result = this.myControlP.value;
+    this.message12 ="Submitに埋め込んだ関数実行。グループ用の型、myControlPのvalueでプロパティを取得　" +  JSON.stringify(result);
+
+  }
+
+  onSubmitP_M(){
+    let result = this.myControlP_M.value;
+    console.log("onSubmitP_M");
+    this.message13 ="Submitに埋め込んだ関数実行。グループ用の型、myControlPのvalueでプロパティを取得　" +  JSON.stringify(result);
 
   }
 
