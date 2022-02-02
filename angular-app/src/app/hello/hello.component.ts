@@ -170,6 +170,57 @@ import { FormControl,FormGroup } from '@angular/forms';//フォームコント�
 
       </form>
 
+      <!-- ngFormを使用したフォーム取得 -->
+      <p class = "red-border">------------------------</p>
+      <p>{{message14}}</p>
+      <!-- ngFormはIDからコンポーネントのプロパティを取得できる。XXX.value それをSubmit時の関数の引数へセット -->
+      <form #f = "ngForm" (ngSubmit)="onSubmitNGF(f.value)">
+
+      <table> 
+        <tr><th>Name</th><td>
+          <!-- ngFormではformControlNameではなくNameとngmodelを使う -->
+          <input type="text" name="name" ngModel>
+        </td></tr>
+        <tr><th>Mail</th><td>
+          <input type="text"  name="mail" ngModel>
+        </td></tr>
+        <tr><th>Age</th><td>
+          <input type="number"  name="age" ngModel>
+        </td></tr>
+        <tr><th></th><td>
+          <input type="submit" value="click">
+        </td></tr>
+      </table>
+
+      </form>
+
+      <!-- HHHHJJJKKHKJKK -->
+      <p class = "red-border">------------------------</p>
+      <p>フォームコントロールグループ フォームコントロールをグループにできる。テンプレ内のnameとコンポ側のフォーム用インスタンスを結びつけておく</p>
+      <p>{{message9}}</p>
+      <!-- テキストボックス -->
+      <form [formGroup] = "myControlF" (ngSubmit)="onSubmit()">
+      <table>
+        <tr><th>Name</th><td>
+          <!-- formControlName=名前が重要、これをもとに取得する -->
+          <input type="text" formControlName="name">
+        </td></tr>
+        <tr><th>Mail</th><td>
+          <input type="text" formControlName="mail">
+        </td></tr>
+        <tr><th>Age</th><td>
+          <input type="number" formControlName="age">
+        </td></tr>
+        <tr><th></th><td>
+          <input type="submit" value="click">
+        </td></tr>
+
+      </table>
+      </form>
+
+
+
+
     </div>
   
 
@@ -194,6 +245,7 @@ export class HelloComponent implements OnInit {
   message11:string;
   message12:string;
   message13:string;
+  message14:string;
 
 
   price:number;
@@ -249,6 +301,7 @@ export class HelloComponent implements OnInit {
     this.message11 = "FormGroup radiobutton ver";
     this.message12 = "FormGroup pull down";
     this.message13 = "FormGroup pull down malti";
+    this.message14 = "Use ngForm ";
 
 
     this.price=1123450;
@@ -381,6 +434,11 @@ export class HelloComponent implements OnInit {
     console.log("onSubmitP_M");
     this.message13 ="Submitに埋め込んだ関数実行。グループ用の型、myControlPのvalueでプロパティを取得　" +  JSON.stringify(result);
 
+  }
+
+  onSubmitNGF(val:any){
+
+    this.message14 = JSON.stringify(val);
   }
 
 
