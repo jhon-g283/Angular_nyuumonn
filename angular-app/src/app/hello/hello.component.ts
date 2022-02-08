@@ -1,7 +1,9 @@
 // おまじない的なもの、OnInitは初期化系
 import { ThisReceiver } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
-import { FormControl,FormGroup } from '@angular/forms';//フォームコントロール、フォームグループをインポート
+//Form Builderフォームビルダー、FormControlフォームコントロール、フFormGroupォームグループ,Validatorsバリデーターをインポート
+import { FormBuilder, FormControl,FormGroup ,Validators} from '@angular/forms';
+
 
 
 
@@ -194,12 +196,37 @@ import { FormControl,FormGroup } from '@angular/forms';//フォームコント�
 
       </form>
 
-      <!-- HHHHJJJKKHKJKK -->
+      <!-- フォームビルダー使用 -->
       <p class = "red-border">------------------------</p>
-      <p>フォームコントロールグループ フォームコントロールをグループにできる。テンプレ内のnameとコンポ側のフォーム用インスタンスを結びつけておく</p>
-      <p>{{message9}}</p>
+      <p>フォームコントロールグループ( FormBuilderを使用) フォームコントロールをグループにできる。テンプレ内のnameとコンポ側のフォーム用インスタンスを結びつけておく</p>
+      <p>{{message15}}</p>
       <!-- テキストボックス -->
-      <form [formGroup] = "myControlF" (ngSubmit)="onSubmit()">
+      <form [formGroup] = "myControlFB" (ngSubmit)="onSubmitFB()">
+      <table>
+        <tr><th>Name</th><td>
+          <!-- formControlName=名前が重要、これをもとに取得する -->
+          <input type="text" formControlName="name">
+        </td></tr>
+        <tr><th>Mail</th><td>
+          <input type="text" formControlName="mail">
+        </td></tr>
+        <tr><th>Age</th><td>
+          <input type="number" formControlName="age">
+        </td></tr>
+        <tr><th></th><td>
+          <input type="submit" value="click">
+        </td></tr>
+
+      </table>
+      </form>
+
+
+       <!-- フォームビルダー使用 -->
+       <p class = "red-border">------------------------</p>
+      <p>フォームコントロールグループ( バリデーション付き) フォームコントロールをグループにできる。テンプレ内のnameとコンポ側のフォーム用インスタンスを結びつけておくタイミングでバリデーションの設定</p>
+      <p>{{message16}}</p>
+      <!-- テキストボックス -->
+      <form [formGroup] = "myControlVal" (ngSubmit)="onSubmitVal()">
       <table>
         <tr><th>Name</th><td>
           <!-- formControlName=名前が重要、これをもとに取得する -->
@@ -246,6 +273,9 @@ export class HelloComponent implements OnInit {
   message12:string;
   message13:string;
   message14:string;
+  message15:string;
+  message16:string;
+  messsage17:string;
 
 
   price:number;
@@ -268,10 +298,13 @@ export class HelloComponent implements OnInit {
   myControlR:FormGroup;
   myControlP:FormGroup;
   myControlP_M:FormGroup;
+  myControlFB:FormGroup;
+  myControlVal:FormGroup;
 
 
   // コンストラクタ
-  constructor() { 
+  // フォームビルダー使用時では引数を用意する。
+  constructor(private fb: FormBuilder) { 
     // 1sごとに処理実施
     setInterval(()=>{
       this.now = new Date();
@@ -281,9 +314,11 @@ export class HelloComponent implements OnInit {
     
     },1000)
 
+    
+
 
   }
-// インターフェース
+// インターフェース 
   ngOnInit() {
 
     console.log("initialise");
@@ -302,6 +337,9 @@ export class HelloComponent implements OnInit {
     this.message12 = "FormGroup pull down";
     this.message13 = "FormGroup pull down malti";
     this.message14 = "Use ngForm ";
+    this.message15 = "Use FormBuilder";
+    this.message16 = "With Validator ";
+    this.messsage17 = "未使用";
 
 
     this.price=1123450;
@@ -340,7 +378,22 @@ export class HelloComponent implements OnInit {
       controle_pull_multi:new FormControl()
     });
 
-    // controle_pull_multi
+    //フォームビルダーでグループ作成
+    //コンストラクタに引数としてフォームビルダー：fbをあらかじめ作って入れておくこと
+    this.myControlFB = this.fb.group({
+      name:[''],
+      mail:[''],
+      age:[0]
+    });
+
+    // フォームコントロールにバリデーションを設定
+    this.myControlVal = new FormGroup({
+      name:  new FormControl('',[Validators.required]),
+      mail:  new FormControl('',[Validators.email]),
+      age: new FormControl(0,[Validators.min(1),Validators.max(150)])
+    });
+
+   
   }
 
   // あらかじめ用意した関数をhtml内の{{}}で表示
@@ -436,10 +489,38 @@ export class HelloComponent implements OnInit {
 
   }
 
+// ngForm使用時の関数
   onSubmitNGF(val:any){
 
-    this.message14 = JSON.stringify(val);
+    this.message14 ="ngForm からフォーム全体のIDからとった値をを引数に投げて表示" +  JSON.stringify(val);
   }
+
+  // フォームビルダー使用時の関数
+  onSubmitFB(){
+      // myControlFB
+      let result = this.myControlFB.value;
+      console.log("myControlFB");
+      this.message15 ="Submitに埋め込んだ関数実行。グループ用の型、myControlFBのvalueでプロパティを取得　" +  JSON.stringify(result);
+  
+
+  }
+
+  // バリデーション使用時の関数等
+  get name(){return this.myControlVal.get('name')};
+  get mail(){return this.myControlVal.get('mail')};
+  get age(){return this.myControlVal.get('age')};
+
+  onSubmitVal(){
+    if(this.myControlVal.invalid){
+      this.message16= "Validatioin error!! フォームグループ.invalid:" +  this.myControlVal.invalid;
+    }else{
+      let result = this.myControlVal.value;
+      this.message16 = "バリデーションクリア　" + JSON.stringify(result);
+
+    }
+
+  };
+  
 
 
 }
