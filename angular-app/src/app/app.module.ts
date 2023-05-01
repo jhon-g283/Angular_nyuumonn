@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import {FormsModule,ReactiveFormsModule} from '@angular/forms';//フォーム用のモジュール、テンプレート駆動フォーム,リアクティブモジュール
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'; //フォーム用のモジュール、テンプレート駆動フォーム,リアクティブモジュール
 
 // 定義部分にあたるapp.componentを取り込む,import
 import { AppComponent } from './app.component';
@@ -10,22 +10,24 @@ import { Hellow2Component } from './hellow2/hellow2.component';
 
 // NgModuleというやつがAuglarでは大事で、先ほど定義したコンポーネントを設定で使用してエクスポートするっぽい
 @NgModule({
+  // 使用するコンポーネント類の宣言部分、ここに記載したコンポーネントを読み込む
   declarations: [
     AppComponent,
     HelloComponent,
-    Hellow2Component//コマンドで追記
+    Hellow2Component, //コマンドで追記
   ],
+  // Angluarのモジュールの読み込み
   imports: [
     BrowserModule,
     FormsModule, // フォームモジュール
-    ReactiveFormsModule//リアクティブモジュール
+    ReactiveFormsModule, //リアクティブモジュール
   ],
   providers: [],
-  // ブートストラップ
+  // ブートストラップ、起動時に表示するルートコンポーネントを指定する。
   // 中に入れるのは上でインポートしてきているクラス名・NGモジュール（）
   // bootstrap: [AppComponent]
-  bootstrap: [HelloComponent]
+  bootstrap: [HelloComponent],
 })
-export class AppModule { }
+export class AppModule {}
 
 // コンポーネント（タグ、スタイル）＝＞取りまとめやくのモジュール＝＞メインという感じの流れ
