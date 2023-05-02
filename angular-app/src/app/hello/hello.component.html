@@ -1,21 +1,18 @@
 <p>hello works!</p>
 <div>
-    <h1>{{title}}</h1>
-    <p>{{message}}</p>
-    <p [class]="styleClass">{{message}}</p>
-    
+  <h1>{{ title }}</h1>
+  <p>{{ message }}</p>
+  <p [class]="styleClass">{{ message }}</p>
 </div>
 
-
 <div>
-    <p>計算の実施</p>
-    <p>"12300*1.10" is  {{12300*1.10}} yen</p>
-    <p class="red-border">----</p>
-    <p>変数　priceを使用して計算</p>
-    <p>price is {{price}}</p>
-    <p>"price * 1.10" => {{price * 1.10}}</p>
-    <p class="red-border">----</p>
-    <p>"function today() => "{{today()}}</p>
-    <p>" setInterval で更新　＝＞"{{today2()}}</p>
-
+  <p>計算の実施</p>
+  <p>"12300*1.10" is {{ 12300 * 1.1 }} yen</p>
+  <p class="red-border">----</p>
+  <p>変数　priceを使用して計算</p>
+  <p>price is {{ price }}</p>
+  <p>"price * 1.10" => {{ price * 1.1 }}</p>
+  <p class="red-border">----</p>
+  <p>"function today() => "{{ today() }}</p>
+  <p>" setInterval で更新　＝＞"{{ today2() }}</p>
 </div>

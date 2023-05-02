@@ -3,11 +3,28 @@ import { ThisReceiver } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 //Form Builderフォームビルダー、FormControlフォームコントロール、フFormGroupォームグループ,Validatorsバリデーターをインポート
 import {
+  AbstractControl,
   FormBuilder,
   FormControl,
   FormGroup,
   Validators,
 } from '@angular/forms';
+
+// 関数類
+function alpha(c: AbstractControl) {
+  // 引数はエラー回避のためAbstractControlへ
+  let REGPATTERN = /^[a-zA-Z]+$/;
+
+  if (REGPATTERN.test(c.value)) {
+    return null;
+  } else {
+    return { alpha: { valid: false } };
+  }
+}
+
+function even(c: AbstractControl) {
+  return c.value % 2 == 0 ? null : { even: { valid: false } };
+}
 
 @Component({
   selector: 'app-hello',
@@ -411,7 +428,113 @@ import {
           <tr>
             <th></th>
             <td>
-              <input type="submit" value="click" />
+              <input
+                [disabled]="myControlFBV.invalid"
+                type="submit"
+                value="click"
+              />
+              <a></a>
+            </td>
+          </tr>
+        </table>
+      </form>
+
+      <!-- フォームビルダー使用 でバリデーションの検証機能追加-->
+      <p class="red-border">------------------------</p>
+      <p>フォームビルダー　バリデーションの検証機能を追加</p>
+      <p>{{ message16 }}</p>
+      <!-- テキストボックス -->
+      <form [formGroup]="myControlFBV2" (ngSubmit)="onSubmitFB()">
+        <table>
+          <tr>
+            <th>Name</th>
+            <td>
+              <!-- formControlName=名前が重要、これをもとに取得する -->
+              <!-- ????? name.invalid kakuninnn -->
+              <div *ngIf="nameFB2.errors != null && nameFB2require != null">
+                Name is require!! (errorの中身を個別に見てる)
+              </div>
+              <div><input type="text" formControlName="name" /></div>
+            </td>
+          </tr>
+          <tr>
+            <th>Mail</th>
+            <td>
+              <div *ngIf="mailFB2.errors != null && mailFB2require != null">
+                mail is invalid!! (errorの中身を個別に見てる)
+              </div>
+              <div><input type="text" formControlName="mail" /></div>
+            </td>
+          </tr>
+          <tr>
+            <th>Age</th>
+            <td>
+              <div *ngIf="ageFB2.errors != null">
+                age is invalid!! (errorの中身を個別に見てる)
+              </div>
+              <div><input type="number" formControlName="age" /></div>
+            </td>
+          </tr>
+          <tr>
+            <th></th>
+            <td>
+              <input
+                [disabled]="myControlFBV.invalid"
+                type="submit"
+                value="click"
+              />
+              <a></a>
+            </td>
+          </tr>
+        </table>
+      </form>
+
+      <p class="red-border">------------------------</p>
+      <p>
+        フォームビルダー　バリデーションに独自の検証関数をFormCotrolを通して実装
+      </p>
+      <p>{{ message16 }}</p>
+      <!-- テキストボックス -->
+      <form [formGroup]="myControlMyRule" (ngSubmit)="onSubmitFB()">
+        <table>
+          <tr>
+            <th>Name</th>
+            <td>
+              <!-- formControlName=名前が重要、これをもとに取得する -->
+              <!-- ????? name.invalid kakuninnn -->
+              <div *ngIf="nameFB3.errors != null && nameFB3Reg != null">
+                RegPatter Error
+              </div>
+              <div><input type="text" formControlName="name" /></div>
+            </td>
+          </tr>
+          <tr>
+            <th>Mail</th>
+            <td>
+              <div *ngIf="mailFB3.errors != null && mailFB3Req != null">
+                mail is invalid!! (errorの中身を個別に見てる)
+              </div>
+              <div><input type="text" formControlName="mail" /></div>
+            </td>
+          </tr>
+          <tr>
+            <th>Age</th>
+            <td>
+              <div *ngIf="ageFB3.errors != null && ageFB3Even != null">
+                evem Error!
+              </div>
+              <div><input type="number" formControlName="age" /></div>
+            </td>
+          </tr>
+          <tr>
+            <th></th>
+            <td>
+              <input
+                [disabled]="myControlFBV.invalid"
+                type="submit"
+                value="click"
+              />
+              <a></a>
             </td>
           </tr>
         </table>
@@ -465,6 +588,8 @@ export class HelloComponent implements OnInit {
   myControlFB: FormGroup;
   myControlVal: FormGroup;
   myControlFBV: FormGroup;
+  myControlFBV2: FormGroup;
+  myControlMyRule: FormGroup;
 
   // コンストラクタ
   // フォームビルダー使用時では引数を用意する。
@@ -563,6 +688,18 @@ export class HelloComponent implements OnInit {
       name: new FormControl('', [Validators.required]), //値：必須
       mail: new FormControl('', [Validators.email]), //値：メール
       age: new FormControl(0, [Validators.min(1), Validators.max(150)]), //１〜１５０まで
+    });
+
+    this.myControlFBV2 = new FormGroup({
+      name: new FormControl('', [Validators.required]), //値：必須
+      mail: new FormControl('', [Validators.email]), //値：メール
+      age: new FormControl(0, [Validators.min(1), Validators.max(150)]), //１〜１５０まで
+    });
+
+    this.myControlMyRule = new FormGroup({
+      name: new FormControl('', [Validators.required, alpha]), //値：必須
+      mail: new FormControl('', [Validators.email]), //値：メール
+      age: new FormControl(0, [Validators.min(1), Validators.max(150), even]), //１〜１５０まで
     });
   }
 
@@ -699,6 +836,46 @@ export class HelloComponent implements OnInit {
   }
   get ageFB() {
     return this.myControlFBV.get('age');
+  }
+
+  // バリデーションチェック　ビルダー側の方2
+  get nameFB2() {
+    return this.myControlFBV2.get('name');
+  }
+  get nameFB2require() {
+    return this.myControlFBV2.get('name').hasError('required');
+  }
+  get mailFB2() {
+    return this.myControlFBV2.get('mail');
+  }
+  get mailFB2require() {
+    return this.myControlFBV2.get('mail').hasError('required');
+  }
+  get ageFB2() {
+    return this.myControlFBV2.get('age');
+  }
+  get ageFB2require() {
+    return this.myControlFBV2.get('name').hasError('age');
+  }
+
+  // バリデーションチェック　ビルダー側の方2
+  get nameFB3() {
+    return this.myControlMyRule.get('name');
+  }
+  get nameFB3Reg() {
+    return this.myControlMyRule.get('name').hasError('alpha');
+  }
+  get mailFB3() {
+    return this.myControlMyRule.get('mail');
+  }
+  get mailFB3Req() {
+    return this.myControlMyRule.get('mail').hasError('required');
+  }
+  get ageFB3() {
+    return this.myControlMyRule.get('age');
+  }
+  get ageFB3Even() {
+    return this.myControlMyRule.get('age').hasError('even');
   }
 
   onSubmitVal() {

@@ -7,6 +7,8 @@ import { AppComponent } from './app.component';
 // コマンド経由でコンポーネントを作成すると自動でモジュールに追記される。HelloComponent
 import { HelloComponent } from './hello/hello.component';
 import { Hellow2Component } from './hellow2/hellow2.component';
+import { MessageComponent } from './message/message.component';
+import { ParentofmessageComponent } from './parentofmessage/parentofmessage.component';
 
 // NgModuleというやつがAuglarでは大事で、先ほど定義したコンポーネントを設定で使用してエクスポートするっぽい
 @NgModule({
@@ -14,7 +16,9 @@ import { Hellow2Component } from './hellow2/hellow2.component';
   declarations: [
     AppComponent,
     HelloComponent,
-    Hellow2Component, //コマンドで追記
+    Hellow2Component,
+    MessageComponent,
+    ParentofmessageComponent, //コマンドで追記
   ],
   // Angluarのモジュールの読み込み
   imports: [
@@ -26,7 +30,7 @@ import { Hellow2Component } from './hellow2/hellow2.component';
   // ブートストラップ、起動時に表示するルートコンポーネントを指定する。
   // 中に入れるのは上でインポートしてきているクラス名・NGモジュール（）
   // bootstrap: [AppComponent]
-  bootstrap: [HelloComponent],
+  bootstrap: [ParentofmessageComponent],
 })
 export class AppModule {}
 

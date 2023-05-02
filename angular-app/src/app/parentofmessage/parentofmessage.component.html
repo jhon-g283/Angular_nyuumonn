@@ -1,0 +1,8 @@
+<p>parentofmessage works!</p>
+<p>コンポーネントから</p>
+<div id="body_">
+  <h1>{{ title }}</h1>
+  <!-- app/messege にある　コンポーネントへ値を渡して表示 -->
+  <!-- [渡し先のコンポーネントのプロパティ] = 値として渡す呼び出し元のプロパティ -->
+  <app-message [content]="message"> </app-message>
+</div>
