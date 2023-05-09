@@ -1,6 +1,37 @@
-<p>message works!</p>
 <div id="body">
-  <h1 class="message">
+  <!-- <h1 class="message">
     {{ content }}
-  </h1>
+  </h1> -->
+
+  <ul (click)="doClick()">
+    <!-- (click)でイベント実装 -->
+    <div *ngIf="_content.length != 0">
+      <p>
+        message works! コンポーネントの値を渡して表示　子コンポ側でイベント実装
+      </p>
+      <!-- 配列分項目表示 -->
+      <li class="message" *ngFor="let item of _content">{{ item }}</li>
+    </div>
+  </ul>
+
+  <ul (click)="doAction($event)">
+    <!-- (click)でイベント実装 -->
+    <div *ngIf="content2 != null">
+      <p>
+        コンポーネントの値を渡して表示　親コンポ側でイベント定義後、EventEmiterでイベントを子コンポに渡す
+      </p>
+      <!-- 配列分項目表示 -->
+      <li class="message" *ngFor="let item of content2">doAction {{ item }}</li>
+    </div>
+
+    <div *ngIf="content3 != null">
+      <p>
+        コンポーネントの値を渡して表示　親コンポ側でイベント定義後、EventEmiterでイベントを子コンポに渡す
+      </p>
+      <!-- 配列分項目表示 -->
+      <li class="message" *ngFor="let item of content3">
+        Event Of Parent {{ item }}
+      </li>
+    </div>
+  </ul>
 </div>
