@@ -9,6 +9,10 @@ import { HelloComponent } from './hello/hello.component';
 import { Hellow2Component } from './hellow2/hellow2.component';
 import { MessageComponent } from './message/message.component';
 import { ParentofmessageComponent } from './parentofmessage/parentofmessage.component';
+import { MystyleDirective } from './mystyle.directive';
+import { UseserviceComponent } from './useservice/useservice.component';
+import { MessagewithserveceComponent } from './messagewithservece/messagewithservece.component';
+import { MycheckService } from './mycheck.service';
 
 // NgModuleというやつがAuglarでは大事で、先ほど定義したコンポーネントを設定で使用してエクスポートするっぽい
 @NgModule({
@@ -18,7 +22,10 @@ import { ParentofmessageComponent } from './parentofmessage/parentofmessage.comp
     HelloComponent,
     Hellow2Component,
     MessageComponent,
-    ParentofmessageComponent, //コマンドで追記
+    ParentofmessageComponent,
+    MystyleDirective,
+    UseserviceComponent,
+    MessagewithserveceComponent, //コマンドで追記
   ],
   // Angluarのモジュールの読み込み
   imports: [
@@ -30,8 +37,14 @@ import { ParentofmessageComponent } from './parentofmessage/parentofmessage.comp
   // ブートストラップ、起動時に表示するルートコンポーネントを指定する。
   // 中に入れるのは上でインポートしてきているクラス名・NGモジュール（）
   // bootstrap: [AppComponent]
-  bootstrap: [ParentofmessageComponent],
+  // bootstrap: [ParentofmessageComponent],
+  bootstrap: [UseserviceComponent],
 })
-export class AppModule {}
+export class AppModule {
+  constructor(private service: MycheckService) {
+    // サービスのnameをセッターで値セットする
+    service.name = 'first name';
+  }
+}
 
 // コンポーネント（タグ、スタイル）＝＞取りまとめやくのモジュール＝＞メインという感じの流れ
