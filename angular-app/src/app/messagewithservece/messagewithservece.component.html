@@ -6,3 +6,18 @@
     </li>
   </ul>
 </div>
+
+<div class="container">
+  <p>
+    サービスを使用して同一のインスタンスからあらかじめ他コンポーネントでセットしておいた値を読み込む
+  </p>
+  <ul>
+    <li
+      class="message"
+      (click)="doAction($event)"
+      *ngFor="let item of content2"
+    >
+      {{ item }}
+    </li>
+  </ul>
+</div>

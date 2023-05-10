@@ -1,17 +1,23 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { MycheckService } from '../mycheck.service';
+import { MycheckService2Service } from '../mycheck-service2.service';
 
 @Component({
   selector: 'app-messagewithservece',
   templateUrl: './messagewithservece.component.html',
   styleUrls: ['./messagewithservece.component.css'],
+  //providersでサービスをセットするとこのコンポーネントを読み込むときに独自のインスタンスを作成する
+  providers: [MycheckService2Service],
 })
 export class MessagewithserveceComponent implements OnInit {
   @Input() content: string[];
+  @Input() content2: string[];
 
-  constructor(private servvice: MycheckService) {
-    // コンストラクタでサービスをセットしてから使用する
-    this.content = ['223'];
+  constructor(
+    private service: MycheckService,
+    private service2: MycheckService2Service
+  ) {
+    service2.push('最下層のコンポで文字をPush');
   }
 
   @Output() action = new EventEmitter<MouseEvent>(); //EventEmitter準備
@@ -23,12 +29,18 @@ export class MessagewithserveceComponent implements OnInit {
     this.action.emit(event);
   }
   ngOnInit(): void {
-    this.content.push(this.servvice.hello2());
+    // コンストラクタでデフォルトでセットされたものを読み込み時にセットして画面表示
+    // コンストラクタでサービスをセットしてから使用する
+    this.content = [];
+    this.content2 = [];
+    this.push(this.service.hello2());
+    this.content2 = this.service2.list; //サービスから同一のインスタンスを読み込んでセット
   }
 
   push(item: string) {
-    this.servvice.name = item;
-    this.content.push(this.servvice.hello2());
+    this.service.name = item; //サービスのnameを変更
+
+    this.content.push(this.service.hello2()); //サービス名を変更したものにさらに同じ処理をさせる
   }
 
   pop() {

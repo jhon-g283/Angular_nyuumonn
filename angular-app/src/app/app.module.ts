@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'; //フォーム用のモジュール、テンプレート駆動フォーム,リアクティブモジュール
+import { RouterModule, Routes } from '@angular/router'; //Routeモジュール
 
 // 定義部分にあたるapp.componentを取り込む,import
 import { AppComponent } from './app.component';
@@ -13,6 +14,13 @@ import { MystyleDirective } from './mystyle.directive';
 import { UseserviceComponent } from './useservice/useservice.component';
 import { MessagewithserveceComponent } from './messagewithservece/messagewithservece.component';
 import { MycheckService } from './mycheck.service';
+import { MycheckService2Service } from './mycheck-service2.service';
+import { HellorouteComponent } from './helloroute/helloroute.component';
+// ルートの設定
+const routes: Routes = [
+  { path: 'hello', component: HellorouteComponent },
+  { path: 'msg', component: MessagewithserveceComponent },
+];
 
 // NgModuleというやつがAuglarでは大事で、先ほど定義したコンポーネントを設定で使用してエクスポートするっぽい
 @NgModule({
@@ -25,25 +33,36 @@ import { MycheckService } from './mycheck.service';
     ParentofmessageComponent,
     MystyleDirective,
     UseserviceComponent,
-    MessagewithserveceComponent, //コマンドで追記
+    MessagewithserveceComponent,
+    HellorouteComponent, //コマンドで追記
   ],
   // Angluarのモジュールの読み込み
   imports: [
     BrowserModule,
     FormsModule, // フォームモジュール
     ReactiveFormsModule, //リアクティブモジュール
+    RouterModule.forRoot(
+      routes,
+      { enableTracing: true } //デバッグ用
+    ),
   ],
   providers: [],
   // ブートストラップ、起動時に表示するルートコンポーネントを指定する。
   // 中に入れるのは上でインポートしてきているクラス名・NGモジュール（）
-  // bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
   // bootstrap: [ParentofmessageComponent],
-  bootstrap: [UseserviceComponent],
+  // bootstrap: [UseserviceComponent],
 })
 export class AppModule {
-  constructor(private service: MycheckService) {
+  constructor(
+    private service: MycheckService,
+    private service2: MycheckService2Service
+  ) {
     // サービスのnameをセッターで値セットする
     service.name = 'first name';
+    service2.push('Kirby');
+    service2.push('DDD');
+    service2.push('Waduldee');
   }
 }
 
