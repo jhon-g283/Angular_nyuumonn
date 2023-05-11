@@ -1,10 +1,18 @@
 <nav>
   <div>
-    <a routerLink="">HOME</a>| <a routerLink="hello">HELLO</a>|
-    <a routerLink="msg">Message</a>
+    <a routerLink="">HOME</a>|
+    <a [routerLink]="['hello', { name: 'taro' }]">HELLO</a>|
+    <a [routerLink]="['hello']" [queryParams]="{ id: 123, name: 'Kirby' }"
+      >HELLO Query </a
+    >|
+    <a [routerLink]="['msg', '123']">Message</a>
   </div>
 </nav>
 <div class="contant">
+  <!-- ルーターに紐ついた処理 -->
+  <router-outlet
+    ><p>現在の階層 {{ message }}</p></router-outlet
+  >
   <router-outlet><p>Router-Outlet</p></router-outlet>
   <hr />
   <p>うえはルーター部分</p>

@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { MycheckService } from '../mycheck.service';
 import { MycheckService2Service } from '../mycheck-service2.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-messagewithservece',
@@ -15,7 +16,8 @@ export class MessagewithserveceComponent implements OnInit {
 
   constructor(
     private service: MycheckService,
-    private service2: MycheckService2Service
+    private service2: MycheckService2Service,
+    private route: ActivatedRoute
   ) {
     service2.push('最下層のコンポで文字をPush');
   }
@@ -33,6 +35,9 @@ export class MessagewithserveceComponent implements OnInit {
     // コンストラクタでサービスをセットしてから使用する
     this.content = [];
     this.content2 = [];
+    this.service2.push(
+      'params: ' + JSON.stringify(this.route.snapshot.paramMap)
+    );
     this.push(this.service.hello2());
     this.content2 = this.service2.list; //サービスから同一のインスタンスを読み込んでセット
   }

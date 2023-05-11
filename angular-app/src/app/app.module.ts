@@ -19,7 +19,7 @@ import { HellorouteComponent } from './helloroute/helloroute.component';
 // ルートの設定
 const routes: Routes = [
   { path: 'hello', component: HellorouteComponent },
-  { path: 'msg', component: MessagewithserveceComponent },
+  { path: 'msg/:id', component: MessagewithserveceComponent },
 ];
 
 // NgModuleというやつがAuglarでは大事で、先ほど定義したコンポーネントを設定で使用してエクスポートするっぽい
