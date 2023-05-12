@@ -1,0 +1,21 @@
+<p>messagehttp works!</p>
+<div style="margin: 10px">
+  <p>{{ message }}</p>
+  <input type="text" [formControl]="input" />
+  <button (click)="doAction()">click</button>
+</div>
+<div class="container">
+  <p class="message">{{ getData() }}</p>
+  <table>
+    <tr>
+      <th>name</th>
+      <th>mail</th>
+      <th>tel</th>
+    </tr>
+    <tr *ngFor="let item of getList()">
+      <td>{{ item.name }}</td>
+      <td>{{ item.mail }}</td>
+      <td>{{ item.tel }}</td>
+    </tr>
+  </table>
+</div>

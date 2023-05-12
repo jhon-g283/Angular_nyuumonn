@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'; //フォーム用のモジュール、テンプレート駆動フォーム,リアクティブモジュール
 import { RouterModule, Routes } from '@angular/router'; //Routeモジュール
+import { HttpClientModule } from '@angular/common/http';
 
 // 定義部分にあたるapp.componentを取り込む,import
 import { AppComponent } from './app.component';
@@ -16,10 +17,15 @@ import { MessagewithserveceComponent } from './messagewithservece/messagewithser
 import { MycheckService } from './mycheck.service';
 import { MycheckService2Service } from './mycheck-service2.service';
 import { HellorouteComponent } from './helloroute/helloroute.component';
+import { HellohttpComponent } from './hellohttp/hellohttp.component';
+import { MessagehttpComponent } from './messagehttp/messagehttp.component';
+
 // ルートの設定
 const routes: Routes = [
   { path: 'hello', component: HellorouteComponent },
   { path: 'msg/:id', component: MessagewithserveceComponent },
+  { path: 'helloclientserve', component: HellohttpComponent },
+  { path: 'msgclientserve', component: MessagehttpComponent },
 ];
 
 // NgModuleというやつがAuglarでは大事で、先ほど定義したコンポーネントを設定で使用してエクスポートするっぽい
@@ -34,7 +40,9 @@ const routes: Routes = [
     MystyleDirective,
     UseserviceComponent,
     MessagewithserveceComponent,
-    HellorouteComponent, //コマンドで追記
+    HellorouteComponent,
+    HellohttpComponent,
+    MessagehttpComponent, //コマンドで追記
   ],
   // Angluarのモジュールの読み込み
   imports: [
@@ -45,6 +53,7 @@ const routes: Routes = [
       routes,
       { enableTracing: true } //デバッグ用
     ),
+    HttpClientModule, //Http通信用
   ],
   providers: [],
   // ブートストラップ、起動時に表示するルートコンポーネントを指定する。

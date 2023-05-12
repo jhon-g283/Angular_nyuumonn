@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { isEmpty } from 'rxjs';
+
 @Component({
   selector: 'app-helloroute',
   templateUrl: './helloroute.component.html',

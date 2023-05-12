@@ -1,0 +1,9 @@
+{
+  "data": "this is sample data_json",
+  "list": [
+    { "name": "Kirby", "mail": "kirby@ppp", "tel": "111-111-111" },
+    { "name": "DDD", "mail": "ddd@ppp", "tel": "121-111-111" },
+    { "name": "RRR", "mail": "rrr@ppp", "tel": "131-111-111" },
+    { "name": "LLL", "mail": "lll@ppp", "tel": "141-111-111" }
+  ]
+}
