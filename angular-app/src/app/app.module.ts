@@ -19,6 +19,7 @@ import { MycheckService2Service } from './mycheck-service2.service';
 import { HellorouteComponent } from './helloroute/helloroute.component';
 import { HellohttpComponent } from './hellohttp/hellohttp.component';
 import { MessagehttpComponent } from './messagehttp/messagehttp.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // ルートの設定
 const routes: Routes = [
@@ -53,7 +54,8 @@ const routes: Routes = [
       routes,
       { enableTracing: true } //デバッグ用
     ),
-    HttpClientModule, //Http通信用
+    HttpClientModule,
+    BrowserAnimationsModule, //Http通信用
   ],
   providers: [],
   // ブートストラップ、起動時に表示するルートコンポーネントを指定する。

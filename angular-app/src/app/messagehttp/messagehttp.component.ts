@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MycheckHttpService } from '../mycheck-http.service';
+import { fromEvent, pipe, filter } from 'rxjs';
 
 @Component({
   selector: 'app-messagehttp',
@@ -10,6 +11,7 @@ import { MycheckHttpService } from '../mycheck-http.service';
 export class MessagehttpComponent implements OnInit {
   input: FormControl;
   message: string;
+  @ViewChild('btn', { static: true }) btn: ElementRef; //はAngularのstrictNullChecksの設定が必要
 
   constructor(private service: MycheckHttpService) {}
 
@@ -17,6 +19,30 @@ export class MessagehttpComponent implements OnInit {
     // フォーム作成
     this.input = new FormControl('');
     this.message = 'mydata list.';
+    const btn = this.btn.nativeElement;
+
+    // fromEvent(btn, 'click').subscribe((event: any) => {
+    //   this.doAction();
+
+    // });
+    fromEvent<MouseEvent>(btn, 'click')
+      .pipe(
+        filter((res: MouseEvent, n: number) => {
+          console.log(n);
+          if (res.shiftKey) {
+            // マウスのシフトキーを押しながらだとクリックボタンの挙動をさせない
+            return false;
+          }
+          return true;
+        })
+      )
+      .subscribe((event: MouseEvent) => {
+        this.doAction();
+      });
+  }
+
+  updateData(ck: boolean) {
+    this.service.updateData(ck);
   }
 
   getData() {
@@ -26,7 +52,10 @@ export class MessagehttpComponent implements OnInit {
 
   getList() {
     // サービスからjson取得してセット
-    return this.service.list;
+    return this.service.list.map((v) => {
+      v.name = '***';
+      return v;
+    });
   }
 
   doAction() {

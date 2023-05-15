@@ -25,7 +25,7 @@ export class MessagewithserveceComponent implements OnInit {
   @Output() action = new EventEmitter<MouseEvent>(); //EventEmitter準備
 
   // EventEmitterを使用して親コンポーネントから渡されたイベントを実行する
-  doAction(event: any) {
+  doAction(event: MouseEvent) {
     console.log('doAction event');
     console.log(event);
     this.action.emit(event);
