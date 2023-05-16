@@ -20,6 +20,23 @@ import { HellorouteComponent } from './helloroute/helloroute.component';
 import { HellohttpComponent } from './hellohttp/hellohttp.component';
 import { MessagehttpComponent } from './messagehttp/messagehttp.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MaterialComponent } from './material/material.component';
+import { MatButtonModule } from '@angular/material/button'; //ボタン
+import { MatIconModule } from '@angular/material/icon'; //アイコン
+import { MatButtonToggleModule } from '@angular/material/button-toggle'; //トグルボタン
+import { MatInputModule } from '@angular/material/input'; //入力ボックス
+import { MatCheckboxModule } from '@angular/material/checkbox'; //チェックボックス
+import { MatRadioModule } from '@angular/material/radio'; //UI ラジオボタン
+import { MatSelectModule } from '@angular/material/select'; //UI ポップアップメニュー
+import { MatSliderModule } from '@angular/material/slider'; // スライダー
+import { MatNativeDateModule } from '@angular/material/core'; //日付
+import { MatDatepickerModule } from '@angular/material/datepicker'; // 日付
+import { MatToolbarModule } from '@angular/material/toolbar'; //ツールバー
+import { MatDividerModule } from '@angular/material/divider'; //ディバイダー
+import { MatCardModule } from '@angular/material/card'; //カードレイアウト
+import { MaterialcardComponent } from './materialcard/materialcard.component';
+import { MatExpansionModule } from '@angular/material/expansion'; //アコーディオン
+import { MatListModule } from '@angular/material/list'; //リスト
 
 // ルートの設定
 const routes: Routes = [
@@ -27,6 +44,8 @@ const routes: Routes = [
   { path: 'msg/:id', component: MessagewithserveceComponent },
   { path: 'helloclientserve', component: HellohttpComponent },
   { path: 'msgclientserve', component: MessagehttpComponent },
+  { path: 'material', component: MaterialComponent },
+  { path: 'materialCard', component: MaterialcardComponent }, // カードコンポーネント
 ];
 
 // NgModuleというやつがAuglarでは大事で、先ほど定義したコンポーネントを設定で使用してエクスポートするっぽい
@@ -43,7 +62,9 @@ const routes: Routes = [
     MessagewithserveceComponent,
     HellorouteComponent,
     HellohttpComponent,
-    MessagehttpComponent, //コマンドで追記
+    MessagehttpComponent,
+    MaterialComponent,
+    MaterialcardComponent, //コマンドで追記
   ],
   // Angluarのモジュールの読み込み
   imports: [
@@ -56,6 +77,21 @@ const routes: Routes = [
     ),
     HttpClientModule,
     BrowserAnimationsModule, //Http通信用
+    MatButtonModule, //UI ボタン
+    MatIconModule, //UI アイコン
+    MatButtonToggleModule, //UI トグル
+    MatInputModule, // UI フォーム
+    MatCheckboxModule, // UI チェックボックス
+    MatRadioModule, //UI ラジオボタン
+    MatSelectModule, //UI ポップアップメニュー
+    MatSliderModule, //UI スライダー
+    MatNativeDateModule, //日付
+    MatDatepickerModule, // 日付
+    MatToolbarModule, //  UI ツールバー
+    MatDividerModule, //　UI ディバイダー
+    MatCardModule, // UI カードレイアウト
+    MatExpansionModule, //UI アコーディオン
+    MatListModule, //UI リスト
   ],
   providers: [],
   // ブートストラップ、起動時に表示するルートコンポーネントを指定する。

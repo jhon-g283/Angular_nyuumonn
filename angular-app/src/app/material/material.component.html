@@ -1,0 +1,191 @@
+<div class="container">
+  <p>material works!</p>
+  <div>
+    <button mat-button>button</button>
+    <button mat-raised-button>raised button</button>
+    <button mat-flat-button>flat button</button>
+    <button mat-stroked-button>stroked button</button>
+  </div>
+  <p>
+    --------------------------------------------------------------------------------------------
+  </p>
+  <div>
+    <p>primaryでカラー設定</p>
+    <button mat-raised-button>BASEIC</button>
+    <button mat-raised-button color="primary">Primary</button>
+    <button mat-raised-button color="accent">Accent</button>
+    <button mat-raised-button color="warn">Warn</button>
+  </div>
+  <p>
+    --------------------------------------------------------------------------------------------
+  </p>
+  <div>
+    <p>アイコンとfabボタン</p>
+    <!-- アイコン名を指定して表示できる -->
+    <button mat-icon-button>
+      <mat-icon>home</mat-icon>
+    </button>
+    <button mat-fab>fab</button>
+    <button mat-mini-fab>fab</button>
+  </div>
+  <p>
+    --------------------------------------------------------------------------------------------
+  </p>
+  <div>
+    <p>トグルボタン</p>
+    <p>{{ message }}</p>
+    <mat-button-toggle-group
+      #tgl="matButtonToggleGroup"
+      (change)="change(tgl.value)"
+    >
+      <mat-button-toggle value="one">One</mat-button-toggle>
+      <mat-button-toggle value="two">Two</mat-button-toggle>
+      <mat-button-toggle value="three">Three</mat-button-toggle>
+      <mat-button-toggle value="four">Foure</mat-button-toggle>
+      <mat-button-toggle value="five">Five</mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
+  <p>
+    --------------------------------------------------------------------------------------------
+  </p>
+  <div>
+    <p>入力フィールド</p>
+    <h2>material-form</h2>
+    <p>{{ messageOfForm }}</p>
+    <form [formGroup]="myControl">
+      <div>
+        <mat-form-field>
+          <input
+            type="text"
+            matInput
+            matType="text"
+            formControlName="name"
+            placeholder="your name"
+          />
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field>
+          <input
+            type="number"
+            matInput
+            matType="number"
+            formControlName="number"
+            placeholder="0"
+        /></mat-form-field>
+      </div>
+      <div>
+        <mat-form-field>
+          <input
+            type="email"
+            matInput
+            matType="email"
+            formControlName="email"
+            placeholder="mail address"
+        /></mat-form-field>
+      </div>
+
+      <button mat-raised-button (click)="click()">click</button>
+    </form>
+  </div>
+  <p>
+    --------------------------------------------------------------------------------------------
+  </p>
+  <div>
+    <p>ラジオボタン</p>
+    <h2>material-radio</h2>
+    <p>{{ messageOfRadio }}</p>
+    <form [formGroup]="myControlRadio">
+      <div>
+        <mat-checkbox formControlName="check">CheckBox</mat-checkbox>
+      </div>
+      <div></div>
+      <div>
+        <mat-button-radio-group formControlName="radio">
+          <mat-radio-button style="margin-right: 30px" value="male"
+            >male</mat-radio-button
+          >
+
+          <mat-radio-button style="margin-right: 30px" value="female"
+            >famele</mat-radio-button
+          >
+        </mat-button-radio-group>
+      </div>
+
+      <button mat-raised-button (click)="clickRadio()">click</button>
+    </form>
+  </div>
+  <p>
+    --------------------------------------------------------------------------------------------
+  </p>
+  <div>
+    <p>ポップアップメニュー</p>
+    <h2>material-select</h2>
+    <p>{{ messageOfSelect }}</p>
+    <form [formGroup]="myControlSelect">
+      <div>
+        <mat-form-field>
+          <mat-select formControlName="select1">
+            <mat-option value="Windows">Windows</mat-option>
+            <mat-option value="MacOs">MacOs</mat-option>
+            <mat-option value="linux">Linux</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field>
+          <mat-select formControlName="select2" multiple=>
+            <mat-option value="Windows">Windows</mat-option>
+            <mat-option value="MacOs">MacOs</mat-option>
+            <mat-option value="linux">Linux</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <button mat-raised-button (click)="clickSelect()">click</button>
+    </form>
+  </div>
+  <p>
+    --------------------------------------------------------------------------------------------
+  </p>
+  <div>
+    <p>スライダー</p>
+    <h2>material-slider</h2>
+    <p>{{ messageOfSlider }}</p>
+    <form [formGroup]="myControlSlider">
+      <div>
+        <mat-slider formControlName="slider1" min="0" max="100" step="0.1">
+
+        </mat-slider>
+      
+      </div>
+      <div>
+        <mat-slider formControlName="slider2" min="0" max="10" step="1" thumbLabel="true" showTick="true" tickInterval="1">
+
+        </mat-slider>
+      
+      </div>
+    
+
+      <button mat-raised-button (click)="clickSlider()">click</button>
+    </form>
+  </div>
+  <p>
+    --------------------------------------------------------------------------------------------
+  </p>
+  <div>
+    <p>日付ピッカー</p>
+    <h2>material-date</h2>
+    <p>{{ messageOfDate }}</p>
+    <form [formGroup]="myControlDate" style="width:200px;">
+      <div>
+        <mat-form-field>
+          <input matInput [matDatepicker]="picker" placeholder="pick a date." formControlName="picker1">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <button mat-raised-button (click)="clickDate()">click</button>
+    </form>
+  </div>
+</div>

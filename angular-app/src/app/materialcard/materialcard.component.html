@@ -1,0 +1,56 @@
+<div class="container">
+  <mat-card>
+    <!-- タイトル -->
+    <mat-card-title>Card Layout</mat-card-title>
+    <!-- サブタイトル -->
+    <mat-card-subtitle>this is sub title text.</mat-card-subtitle>
+    <mat-card-content>This is card Layouyt contents</mat-card-content>
+  </mat-card>
+  <mat-card-actions>
+    <button mat-flat-button color="primary">OK</button>
+    <button mat-flat-button color="accent">Continue</button>
+    <button mat-flat-button color="warn">Cancel</button>
+  </mat-card-actions>
+
+  <!-- アコーディオンの内容 -->
+  <mat-accordion>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title> First Panel </mat-panel-title>
+        <mat-panel-description> This is first Panel. </mat-panel-description>
+      </mat-expansion-panel-header>
+      <div>
+        <h2>First Panel</h2>
+        <p>this is contents of FirstPanel</p>
+      </div>
+      <mat-action-row>
+        <button mat-button>click</button>
+      </mat-action-row>
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title> Second Panel </mat-panel-title>
+        <mat-panel-description> This is second Panel. </mat-panel-description>
+      </mat-expansion-panel-header>
+      <div>
+        <h2>Second Panel</h2>
+        <p>this is contents of SecondPanel</p>
+      </div>
+      <mat-action-row>
+        <button mat-button>click</button>
+      </mat-action-row>
+    </mat-expansion-panel>
+  </mat-accordion>
+  <p class="message">This is not include in the card layout</p>
+  <!-- メモ用 -->
+  <div>
+    <p>navigation list</p>
+    <!-- <form [formGroup]="myControl"></form> -->
+    <mat-card>
+      <!-- <mat-nav-list>
+
+        </mat-nav-list> -->
+    </mat-card>
+  </div>
+  <!-- メモ用 -->
+</div>
