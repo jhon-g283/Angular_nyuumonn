@@ -1,0 +1,26 @@
+<div class="container">
+  <h1>material works</h1>
+  <div>
+    <p>navigation list</p>
+    <form [formGroup]="myControl">
+      <mat-card>
+        <mat-nav-list>
+          <a mat-list-item routerLink=""> Top Page </a>
+          <a mat-list-item routerLink="/hello"> Hello </a>
+          <a mat-list-item routerLink="/msg/123"> Message </a>
+        </mat-nav-list>
+      </mat-card>
+      <p>selection list</p>
+      <mat-card>
+        <mat-selection-list formControlName="list1">
+          <mat-list-option value="win">Windows</mat-list-option>
+          <mat-list-option value="mac">Mac</mat-list-option>
+          <mat-list-option value="lix">Linux</mat-list-option>
+        </mat-selection-list>
+      </mat-card>
+    </form>
+  </div>
+  <p>{{ message }}</p>
+
+  <button mat-button (click)="click()">click</button>
+</div>

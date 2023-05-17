@@ -1,0 +1,19 @@
+<mat-dialog-content style="height: 250px">
+  <p>please input</p>
+  <mat-form-field>
+    <input placeholder="name" type="text" [(ngModel)]="data.name" matInput />
+    <!-- <input placeholder="name" type="text" matInput[(ngModel)]="data.name" /> -->
+  </mat-form-field>
+  <mat-form-field>
+    <input
+      placeholder="password"
+      type="password"
+      [(ngModel)]="data.pass"
+      matInput
+    />
+  </mat-form-field>
+  <div mat-dialog-actions>
+    <button mat-button [mat-dialog-close]="data">OK</button>
+    <button mat-button (click)="cancel()">Cancel</button>
+  </div>
+</mat-dialog-content>

@@ -1,4 +1,5 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+// ここ試す。。。めっmdぽい
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'; //フォーム用のモジュール、テンプレート駆動フォーム,リアクティブモジュール
 import { RouterModule, Routes } from '@angular/router'; //Routeモジュール
@@ -37,6 +38,21 @@ import { MatCardModule } from '@angular/material/card'; //カードレイアウ�
 import { MaterialcardComponent } from './materialcard/materialcard.component';
 import { MatExpansionModule } from '@angular/material/expansion'; //アコーディオン
 import { MatListModule } from '@angular/material/list'; //リスト
+import { MateriallistComponent } from './materiallist/materiallist.component'; //リスト
+import { MatSortModule } from '@angular/material/sort'; //ソート
+import { MaterialtableComponent } from './materialtable/materialtable.component'; //テーブル
+import { MaterialtabpanelComponent } from './materialtabpanel/materialtabpanel.component'; //タブパネル
+import { MatTabsModule } from '@angular/material/tabs'; //タブパネル
+import {
+  MaterialbottomsheetComponent,
+  MysheetComponent,
+} from './materialbottomsheet/materialbottomsheet.component'; //ボトムシート
+import { MatBottomSheetModule } from '@angular/material/bottom-sheet'; //ボトムシート
+import {
+  MaterialdialogComponent,
+  MyDialogComponent,
+} from './materialdialog/materialdialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 // ルートの設定
 const routes: Routes = [
@@ -46,6 +62,11 @@ const routes: Routes = [
   { path: 'msgclientserve', component: MessagehttpComponent },
   { path: 'material', component: MaterialComponent },
   { path: 'materialCard', component: MaterialcardComponent }, // カードコンポーネント
+  { path: 'materialList', component: MateriallistComponent }, //リストコンポーネント
+  { path: 'materialTable', component: MaterialtableComponent }, // ソート テーブル
+  { path: 'materialTab', component: MaterialtabpanelComponent }, // タブ
+  { path: 'materialBottom', component: MaterialbottomsheetComponent }, // ボトム
+  { path: 'materialDialog', component: MaterialdialogComponent }, // ダイアログ
 ];
 
 // NgModuleというやつがAuglarでは大事で、先ほど定義したコンポーネントを設定で使用してエクスポートするっぽい
@@ -64,7 +85,16 @@ const routes: Routes = [
     HellohttpComponent,
     MessagehttpComponent,
     MaterialComponent,
-    MaterialcardComponent, //コマンドで追記
+    MaterialcardComponent,
+    MateriallistComponent,
+    MaterialtableComponent,
+    MaterialtabpanelComponent,
+    MaterialbottomsheetComponent,
+    MaterialdialogComponent,
+    MyDialogComponent, //コマンドで追記
+  ],
+  entryComponents: [
+    MysheetComponent, //追記
   ],
   // Angluarのモジュールの読み込み
   imports: [
@@ -92,6 +122,10 @@ const routes: Routes = [
     MatCardModule, // UI カードレイアウト
     MatExpansionModule, //UI アコーディオン
     MatListModule, //UI リスト
+    MatSortModule, //UI ソート
+    MatTabsModule, //UI タブ
+    MatBottomSheetModule, // UI ボトムシート
+    MatDialogModule, // UI ダイアログ
   ],
   providers: [],
   // ブートストラップ、起動時に表示するルートコンポーネントを指定する。
@@ -99,6 +133,7 @@ const routes: Routes = [
   bootstrap: [AppComponent],
   // bootstrap: [ParentofmessageComponent],
   // bootstrap: [UseserviceComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppModule {
   constructor(
