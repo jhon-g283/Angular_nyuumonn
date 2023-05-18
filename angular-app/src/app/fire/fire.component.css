@@ -1,0 +1,35 @@
+.container {
+  background-color: aliceblue;
+  padding: 0px 10px;
+}
+
+.container div {
+  padding: 0px 10px;
+}
+
+.message {
+  font-size: 14pt;
+}
+
+h1 {
+  position: relative;
+  text-align: right;
+  margin-top: -50px;
+}
+
+button {
+  margin-right: 10px;
+}
+
+th {
+  background-color: lightblue;
+  border: 1px solid aliceblue;
+  padding: 5px 20px;
+}
+
+td {
+  background-color: white;
+  border: 1px solid aliceblue;
+  font-size: 14px;
+  padding: 5px 20px;
+}

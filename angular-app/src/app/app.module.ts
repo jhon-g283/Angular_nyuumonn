@@ -54,8 +54,41 @@ import {
 } from './materialdialog/materialdialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
 
+// FireBase関連
+// バージョンが参考書籍と違うらしくインポートを変更してる
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+
+import { firebaseConfigInfo } from '../../work/keyfile';
+import { FireComponent } from './fire/fire.component';
+
+// Import the functions you need from the SDKs you need
+// import { initializeApp } from "firebase/app";
+// import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+// FireBaseのキー情報をブラウザからコピペ
+const firebaseConfig = {
+  apiKey: '**********',
+  authDomain: '**********',
+  projectId: '**********',
+  storageBucket: '**********',
+  messagingSenderId: '**********',
+  appId: '**********',
+  measurementId: '**********',
+};
+
+// Initialize Firebase
+// const app = initializeApp(firebaseConfig);
+// const analytics = getAnalytics(app);
+
 // ルートの設定
 const routes: Routes = [
+  { path: 'fire', component: FireComponent },
   { path: 'hello', component: HellorouteComponent },
   { path: 'msg/:id', component: MessagewithserveceComponent },
   { path: 'helloclientserve', component: HellohttpComponent },
@@ -91,7 +124,8 @@ const routes: Routes = [
     MaterialtabpanelComponent,
     MaterialbottomsheetComponent,
     MaterialdialogComponent,
-    MyDialogComponent, //コマンドで追記
+    MyDialogComponent,
+    FireComponent, //コマンドで追記
   ],
   entryComponents: [
     MysheetComponent, //追記
@@ -126,6 +160,9 @@ const routes: Routes = [
     MatTabsModule, //UI タブ
     MatBottomSheetModule, // UI ボトムシート
     MatDialogModule, // UI ダイアログ
+    AngularFireModule.initializeApp(firebaseConfigInfo), //FireBaseのキー情報を取得して初期化(※ルートで１度のみ実施)
+    AngularFireAuthModule,
+    AngularFirestoreModule,
   ],
   providers: [],
   // ブートストラップ、起動時に表示するルートコンポーネントを指定する。
