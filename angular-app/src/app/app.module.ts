@@ -62,6 +62,7 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 
 import { firebaseConfigInfo } from '../../work/keyfile';
 import { FireComponent } from './fire/fire.component';
+import { FirepepleComponent } from './firepeple/firepeple.component';
 
 // Import the functions you need from the SDKs you need
 // import { initializeApp } from "firebase/app";
@@ -82,6 +83,8 @@ const firebaseConfig = {
   measurementId: '**********',
 };
 
+console.log(firebaseConfigInfo);
+
 // Initialize Firebase
 // const app = initializeApp(firebaseConfig);
 // const analytics = getAnalytics(app);
@@ -89,6 +92,7 @@ const firebaseConfig = {
 // ルートの設定
 const routes: Routes = [
   { path: 'fire', component: FireComponent },
+  { path: 'firePeople', component: FirepepleComponent },
   { path: 'hello', component: HellorouteComponent },
   { path: 'msg/:id', component: MessagewithserveceComponent },
   { path: 'helloclientserve', component: HellohttpComponent },
@@ -125,7 +129,8 @@ const routes: Routes = [
     MaterialbottomsheetComponent,
     MaterialdialogComponent,
     MyDialogComponent,
-    FireComponent, //コマンドで追記
+    FireComponent,
+    FirepepleComponent, //コマンドで追記
   ],
   entryComponents: [
     MysheetComponent, //追記

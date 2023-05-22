@@ -1,0 +1,37 @@
+<div class="container">
+  <h1>FireBase works</h1>
+  <div>
+    <p>{{ message }}</p>
+    <button mat-raised-button (click)="login()">Login</button>
+    <button mat-raised-button (click)="logout()">Logout</button>
+    <p>{{ currentUser }}</p>
+    <mat-form-field style="margin-right: 10px">
+      <input matInput #input />
+    </mat-form-field>
+    <button mat-stroked-button (click)="find(input.value)">Get</button>
+    <div>
+      <mat-form-field style="margin-right: 10px">
+        <input matInput [(ngModel)]="name" placeholder="name" />
+      </mat-form-field>
+      <mat-form-field style="margin-right: 10px">
+        <input matInput [(ngModel)]="mail" placeholder="mail" />
+      </mat-form-field>
+      <mat-form-field style="margin-right: 10px">
+        <input matInput [(ngModel)]="number" placeholder="number" />
+      </mat-form-field>
+      <button mat-stroked-button (click)="add()">ADD</button>
+    </div>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Mail</th>
+        <th>Age</th>
+      </tr>
+      <tr *ngFor="let item of data">
+        <td>{{ item["name"] }}</td>
+        <td>{{ item["mail"] }}</td>
+        <td>{{ item["age"] }}</td>
+      </tr>
+    </table>
+  </div>
+</div>

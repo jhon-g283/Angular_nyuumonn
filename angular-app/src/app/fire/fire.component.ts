@@ -4,7 +4,8 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 @Component({
   selector: 'app-fire',
   templateUrl: './fire.component.html',
-  styleUrls: ['./fire.component.css'],
+  styleUrls: ['../material/material.component.css'],
+  // styleUrls: ['./materialbottomsheet.component.css']
 })
 export class FireComponent implements OnInit {
   message: string = 'wait/////';
