@@ -1,0 +1,26 @@
+<div class="base">
+  <mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <a mat-icon-button routerLink="">
+        <mat-icon>home</mat-icon>
+      </a>
+      <span style="flex: auto"></span>
+      <span>Book Review</span>
+      <span style="flex: auto"></span>
+      <button mat-icon-button (click)="loginCheck()">
+        <mat-icon>{{
+          currentUser != "(not logined.)" ? "done" : "priority_high"
+        }}</mat-icon>
+      </button>
+    </mat-toolbar-row>
+  </mat-toolbar>
+  <a mat-fab class="fab" routerLink="add">
+    <mat-icon>add</mat-icon>
+  </a>
+  <p class="user">[ USER: {{ currentUser }} ]</p>
+  <div class="content">
+    <router-outlet *ngIf="currentUser != '(not logined.)'"></router-outlet>
+    <mat-divider></mat-divider>
+    <p class="footer">2019 SYODA-Tuyano.</p>
+  </div>
+</div>
