@@ -22,13 +22,16 @@ export class AppComponent {
   constructor(
     private router: Router,
     private afAuth: AngularFireAuth,
-    private ngZone: NgZone
+    private ngZone: NgZone //同期と非同期の処理が完了になったことを監視する。
   ) {}
 
   ngOnInit() {
     // this.afAuth.auth.onAuthStateChanged((usr)=>{
+    // onAuthStateChangedでユーザーの承認状態が変化された場合に動く処理を登録
     this.afAuth.onAuthStateChanged((usr) => {
+      // ログインが済みになってる状態
       this.ngZone.run(() => {
+        // ホームヘ遷移する
         this.router.navigate(['']);
       });
     });

@@ -26,11 +26,13 @@ export class HomeComponent implements OnInit {
   }
 
   getBooks() {
+    // 本のデータの取得
     this.store
-      .collection('books', (ref) => ref.orderBy('created', 'desc').limit(10))
+      .collection('books', (ref) => ref.orderBy('created', 'desc').limit(10)) //１０件取得
       .valueChanges()
       .subscribe(
         (value) => {
+          // データへセット
           this.data = value;
           this.message = 'Book list.';
         },

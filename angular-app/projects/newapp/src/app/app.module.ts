@@ -36,7 +36,7 @@ import { AddComponent } from './add/add.component';
 import { firebaseConfigInfo } from '../../../../work/keyfile';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
+  { path: '', component: HomeComponent }, //ホームはホームコンポーネントに遷移させる。
   { path: 'show/:isbn', component: ShowComponent },
   { path: 'add', component: AddComponent },
 ];

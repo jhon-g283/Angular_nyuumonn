@@ -19,7 +19,7 @@ export class AddComponent implements OnInit {
   isbn: string;
   constructor(
     private store: AngularFirestore,
-    private fns: AngularFireFunctions,
+    private fns: AngularFireFunctions, //FireStoreの関数
     private afAuth: AngularFireAuth
   ) {}
 
@@ -30,6 +30,7 @@ export class AddComponent implements OnInit {
   }
 
   getISBN() {
+    // すでにFireBaseのデータに登録済みかどうかチェックする。
     this.store
       .collection('books', (ref) => ref.where('isbn', '==', this.isbn))
       .valueChanges()
@@ -53,9 +54,12 @@ export class AddComponent implements OnInit {
 
   add() {
     this.message = 'wait...';
-    const call = this.fns.httpsCallable('isbn');
+    const call = this.fns.httpsCallable('isbn'); //CloudFunction,FireStoreにアップした関数を呼び出す。
+
     call({ isbn: this.isbn }).subscribe(
       (resp) => {
+        console.log('resp');
+        console.log(resp);
         this.message = 'sended! Please wait a few minutes...';
         this.isbn = '';
       },

@@ -1,8 +1,11 @@
+<!-- ホーム用のコンポーネント -->
 <div>
   <h1>Book list</h1>
   <p>{{ message }}</p>
+  <!-- リストにデータを表示させる。 -->
   <mat-card>
     <mat-nav-list>
+      <!-- 移動する階層（/show）とクエリパラメータ（ISBN）をセットしてURLがわりにする。 -->
       <a
         mat-list-item
         [routerLink]="['show', item.isbn]"

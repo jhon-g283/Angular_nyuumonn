@@ -27,12 +27,12 @@ export class ShowComponent implements OnInit {
   userName: string = '未ログインの状態・・・・'; //ユーザー名
 
   constructor(
-    private route: ActivatedRoute,
+    private route: ActivatedRoute, //アクティブルート
     private afAuth: AngularFireAuth,
     private store: AngularFirestore
   ) {
-    const param: any = route.snapshot.paramMap;
-    this.isbn = param['params']['isbn'];
+    const param: any = route.snapshot.paramMap; //クエリパラメータ取得
+    this.isbn = param['params']['isbn']; //ISBN取り出す
   }
 
   ngOnInit() {
@@ -50,6 +50,7 @@ export class ShowComponent implements OnInit {
   }
 
   getBook() {
+    // クエリパラメータからセットしてISBNを元にデータの取得をFireStoreから行う
     this.store
       .collection('books', (ref) => ref.where('isbn', '==', this.isbn))
       .snapshotChanges()
@@ -60,6 +61,7 @@ export class ShowComponent implements OnInit {
             this.data = null;
             return;
           }
+          // 各種データセット
           this.key = value[0].payload.doc.id;
           this.data = value[0].payload.doc.data();
           this.message = 'Book data.';
@@ -73,10 +75,11 @@ export class ShowComponent implements OnInit {
   }
 
   getComments() {
+    // 本のコメントを取得
     this.store
-      .collection('books')
+      .collection('books') //booksコレクション
       .doc(this.key)
-      .collection('comments', (ref) => ref.orderBy('posted', 'desc').limit(30))
+      .collection('comments', (ref) => ref.orderBy('posted', 'desc').limit(30)) //さらにそのコレクション内のcommentsコレクションから取得
       .valueChanges()
       .subscribe(
         (value) => {
@@ -89,17 +92,24 @@ export class ShowComponent implements OnInit {
   }
 
   addComment() {
+    // コメントの追加
     // const name = this.afAuth.auth.currentUser.displayName;
-    const name = this.userName;
+    const name = this.userName; //User名
+
+    //コメント用のデータ
     const obj = {
       name: name,
       comment: this.comment,
       posted: new Date().getTime(),
     };
+
+    console.log('obj');
+    console.log(obj);
+    // データ登録
     this.store
-      .collection('books')
+      .collection('books') //booksコレクション」
       .doc(this.key)
-      .collection('comments')
+      .collection('comments') //さらにそのコレクション内のcommentsコレクションへ追加
       .add(obj);
     this.comment = '';
   }
